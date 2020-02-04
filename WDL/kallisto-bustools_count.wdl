@@ -1,8 +1,8 @@
-# Kallisto-Bustools count subworkflow
-# A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools
-# Workflow by jgatter [at] broadinstitute.org, created November 2019
-# FULL DISCLOSURE: many optional parameters remain untested, contact me with bug reports or feature requests
-# Kallisto and Bustools made by Pachter Lab. Documentation: https://www.kallistobus.tools/kb_getting_started.html
+# Kallisto-Bustools Count subworkflow (https://github.com/ShalekLab/kallisto-bustools_workflow)
+# A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools wrapped within kb_python
+# Workflow by jgatter [at] broadinstitute.org, created November 2019. Jointly maintained with Cumulus Team.
+# FULL DISCLOSURE: many optional parameters remain untested, post on GitHub with bug reports, etc.
+# Kallisto and Bustools software made by Pachter Lab. Documentation: https://www.kallistobus.tools/kb_getting_started.html
 # -----------------------------------------------------------------------------------------------------------
 # COUNT INSTRUCTIONS: Align your reads and generate a count matrix (use_lamanno=true for RNA velocity)
 # ex: kb count --verbose (--lamanno) -i index.idx -g transcripts_to_genes.txt -x DROPSEQ -t 32 -m 256G --filter bustools -o ~/count (use_lamanno==true: c1 cDNA_t2c.txt -c2 intron_t2c.txt) R1.fastq.gz (R2.fastq.gz)
@@ -14,32 +14,8 @@
 #	Specifically, for running with use_lamanno, memory/disk space parameters may require tweaking! Let me know!
 # Outputs: Count matrices filtered and unfiltered with their respective barcode and gene lists. Many other files as well.
 # -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 15
-# Upped memory, disk space, boot disk size
-# Added delete_bus_files
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 16
-# Changed ~/kb to ~/count
-# Took away default for delete_bus_files. If you think it should be true/false by default, please let me know
-# Added count_output_path output
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 17
-# Added sample_name for scattering purposes. See newest kallisto-bustools.wdl for scattering of sample_sheet.
-# output_path that may contain bucket in the string now removes that substring.
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 18
-# Fixed output_path_slash and program_memory
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 19
-# Added empty string handling for output_path_slash
-# Removed default value for use_lamanno
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 20
-# Moved modifications of parameters outside of workflow inputs
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 21
-# Adjusted memory parameters
-# Renamed boot_disk_size_gb to boot_disk_size_GB
+# SNAPSHOT 1
+# Public release.
 # -----------------------------------------------------------------------------------------------------------
 
 version 1.0
@@ -59,7 +35,7 @@ workflow kallisto_bustools_count {
 
 		File index
 		File T2G_mapping
-		String technology # DROPSEQ, 10XV1, 10XV2, 10XV3 or see kb --list for more
+		String technology # DROPSEQ, 10XV1, 10XV2, 10XV3 or README for more
 		File R1_fastq
 
 		String? sample_name

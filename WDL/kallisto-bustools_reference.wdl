@@ -1,8 +1,8 @@
-# Kallisto-Bustools reference subworkflow
-# A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools
-# Workflow by jgatter [at] broadinstitute.org, created November 2019
-# FULL DISCLOSURE: many optional parameters remain untested, contact me with bug reports or feature requests
-# Kallisto and Bustools made by Pachter Lab. Documentation: https://www.kallistobus.tools/kb_getting_started.html
+# Kallisto-Bustools Reference subworkflow (https://github.com/ShalekLab/kallisto-bustools_workflow)
+# A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools wrapped within kb_python
+# Workflow by jgatter [at] broadinstitute.org, created November 2019. Jointly maintained with Cumulus Team.
+# FULL DISCLOSURE: many optional parameters remain untested, post on GitHub with bug reports, etc.
+# Kallisto and Bustools software made by Pachter Lab. Documentation: https://www.kallistobus.tools/kb_getting_started.html
 # -----------------------------------------------------------------------------------------------------------
 # REFERENCE INSTRUCTIONS: (1) Build or (2) download a transcriptome index
 # Set run_build_reference to true, runs only one time, not for the number of samples in your sample sheet.
@@ -14,26 +14,8 @@
 # 	Inputs: download_index (“human”, “mouse”, “linnarsson”), use_lamanno=true if you want to run RNA velocity
 # Outputs: Kallisto index, T2G mapping, cDNA FASTA, (if use_lamanno==true: intron FASTA, cDNA_transcripts_to_genes.txt, and intron_transcripts_to_genes.txt)
 # -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 11
-# Upped memory and disk space.
-# Removed --keep-tmp
-# Everything now happens in ~/kb of the container.
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 12
-# Changed ~/kb to ~/ref
-# Added ref_output_path
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 13
-# output_path that may contain bucket in the string now removes that substring.
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 14
-# Fixed output_path_slash and program_memory
-# Removed default value for use_lamanno
-# -----------------------------------------------------------------------------------------------------------
-# SNAPSHOT 15 & 16 & 17
-# Upped disk size!
-# Added boot_disk_size_GB
-# Preemptible set to 0 because Google is annoying.
+# SNAPSHOT 1
+# Public release.
 # -----------------------------------------------------------------------------------------------------------
 
 version 1.0

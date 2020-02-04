@@ -1,10 +1,10 @@
 # Kallisto-Bustools Workflow
 
-A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools wrapped within kb_python.
-By jgatter [at] broadinstitute.org, created November 2019.
-Jointly maintained by jgatter [at] broadinstitute.org and the [Cumulus Team](https://github.com/klarman-cell-observatory/cumulus).
-FULL DISCLOSURE: many optional parameters remain untested, post issues on this repo with bug reports, etc.
-Kallisto and Bustools software developed by Pachter Lab. [Documentation](https://www.kallistobus.tools/kb_getting_started.html).
+A publicly available WDL workflow made by Shalek Lab for Kallisto and Bustools wrapped within kb_python.  
+By jgatter [at] broadinstitute.org, created November 2019.  
+Jointly maintained by jgatter [at] broadinstitute.org and the [Cumulus Team](https://github.com/klarman-cell-observatory/cumulus).  
+FULL DISCLOSURE: many optional parameters remain untested, post issues on this repo with bug reports, etc.  
+Kallisto and Bustools software developed by Pachter Lab. [Documentation](https://www.kallistobus.tools/kb_getting_started.html).  
 
 ## About 
 
