@@ -17,6 +17,8 @@
 # SNAPSHOT 1
 # Public release.
 # -----------------------------------------------------------------------------------------------------------
+# SNAPSHOT 2
+# Removed failOnStdErr runtime parameter.
 
 version 1.0
 
@@ -159,7 +161,6 @@ task count {
 		memory: "~{task_memory_GB}G"
 		zones: "~{zones}"
 		bootDiskSizeGb: boot_disk_size_GB
-		failOnStderr: true
 		disks: "~{disks}"
 		cpu: number_cpu_threads
 	}

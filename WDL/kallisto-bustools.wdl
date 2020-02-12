@@ -30,11 +30,13 @@
 # SNAPSHOT 1
 # Public release.
 # -----------------------------------------------------------------------------------------------------------
+# SNAPSHOT 2
+# Import kb_count 2
 
 version 1.0
 
 import "https://api.firecloud.org/ga4gh/v1/tools/alexandria:kallisto-bustools_reference/versions/1/plain-WDL/descriptor" as kb_ref
-import "https://api.firecloud.org/ga4gh/v1/tools/alexandria:kallisto-bustools_count/versions/1/plain-WDL/descriptor" as kb_count
+import "https://api.firecloud.org/ga4gh/v1/tools/alexandria:kallisto-bustools_count/versions/2/plain-WDL/descriptor" as kb_count
 
 workflow kallisto_bustools {
 	input {
