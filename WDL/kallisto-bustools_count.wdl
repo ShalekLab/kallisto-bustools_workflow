@@ -126,12 +126,11 @@ task count {
 		set -e
 		export TMPDIR=/tmp
 
-		mkdir ~/count~{'_'+sample_name}
 		kb count --verbose \
 			-i ~{index} \
 			-g ~{T2G_mapping} \
 			-x ~{technology} \
-			-o ~/count~{'_'+sample_name} \
+			-o result \
 			~{"-w "+barcodes_whitelist} \
 			~{true="--lamanno" false='' use_lamanno} \
 			~{"-c1 "+cDNA_transcripts_to_capture} \
@@ -146,14 +145,14 @@ task count {
 			~{R2_fastq}
 
 		if [ "~{delete_bus_files}" = "true" ]; then
-			rm -vf ~/count~{'_'+sample_name}/*.bus
+			rm -vf result/*.bus
 		fi
-		gsutil mv ~/count~{'_'+sample_name} ~{bucket_slash}~{output_path_slash}
+		gsutil -m rsync -r result ~{bucket_slash}~{output_path_slash}~{sample_name}
 	}
 	output {
-		String count_output_path = "~{bucket_slash}~{output_path_slash}count~{'_'+sample_name}/"
-		String counts_unfiltered_matrix = "~{bucket_slash}~{output_path_slash}count~{'_'+sample_name}/counts_unfiltered/cells_x_genes.mtx"
-		String counts_filtered_matrix = "~{bucket_slash}~{output_path_slash}count~{'_'+sample_name}/counts_filtered/cells_x_genes.mtx"
+		String count_output_path = "~{bucket_slash}~{output_path_slash}~{sample_name}"
+		String counts_unfiltered_matrix = "~{bucket_slash}~{output_path_slash}~{sample_name}/counts_unfiltered/cells_x_genes.mtx"
+		String counts_filtered_matrix = "~{bucket_slash}~{output_path_slash}~{sample_name}/counts_filtered/cells_x_genes.mtx"
 	}
 	runtime {
 		docker: "~{docker}"
