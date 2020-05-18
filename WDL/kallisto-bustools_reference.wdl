@@ -17,6 +17,13 @@
 # SNAPSHOT 1
 # Public release.
 # -----------------------------------------------------------------------------------------------------------
+# SNAPSHOT 2
+# Removed failOnStdErr runtime parameter.
+# build_reference now creates ref within /cromwell_root rather than the home directory
+# gsutil rsync copies out the files rather than gsutil mv
+# preemptible has been set as 2 by default
+# Several runtime parameter changes
+# -----------------------------------------------------------------------------------------------------------
 
 version 1.0
 
@@ -25,10 +32,10 @@ workflow kallisto_bustools_reference {
 		String docker = "shaleklab/kallisto-bustools:0.24.4"
 		Int number_cpu_threads = 32
 		Int task_memory_GB = 128
-		Int preemptible = 0
-		String zones = "us-east1-d us-west1-a us-west1-b"
-		String disks = "local-disk 256 HDD"
-		Int boot_disk_size_GB = 100
+		Int preemptible = 2
+		String zones = "us-central1-a us-central1-b us-central1-c us-central1-f us-east1-b us-east1-c us-east1-d us-west1-a us-west1-b us-west1-c"
+		String disks = "local-disk 256 SSD"
+		Int boot_disk_size_GB = 10
 
 		String bucket
 		String output_path
@@ -90,7 +97,10 @@ task build_reference {
 		set -e
 		export TMPDIR=/tmp
 
-		mkdir ~/ref && cd ~/ref
+		df -h /
+		df -h /cromwell_root
+	
+		mkdir ref && cd ref
 		kb ref --verbose \
 			-i index.idx \
 			-g transcripts_to_genes.txt \
@@ -102,8 +112,8 @@ task build_reference {
 			~{true="-c2 intron_transcripts_to_capture.txt" false='' use_lamanno} \
 			~{genomic_fasta} \
 			~{reference_gtf}
-
-		gsutil -m mv ~/ref/* ~{bucket_slash}~{output_path_slash}ref/
+		
+		gsutil -m rsync -r . ~{bucket_slash}~{output_path_slash}ref
 	}
 	output {
 		String index = "~{bucket_slash}~{output_path_slash}ref/index.idx"
@@ -120,7 +130,6 @@ task build_reference {
 		memory: "~{task_memory_GB}G"
 		zones: "~{zones}"
 		disks: "~{disks}"
-		failOnStderr: true
 		cpu: number_cpu_threads
 		bootDiskSizeGb: boot_disk_size_GB
 	}
